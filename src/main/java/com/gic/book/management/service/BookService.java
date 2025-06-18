@@ -11,7 +11,7 @@ import com.gic.book.management.model.Book;
  * It includes methods for adding, updating, deleting, retrieving,
  * and searching for books.
  */
-public interface BookStoreService {
+public interface BookService {
     /**
      * Adds a new book to the bookstore.
      *

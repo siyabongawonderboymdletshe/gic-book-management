@@ -1,11 +1,11 @@
 package com.gic.book.management.controller;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import com.gic.book.management.dto.BookRequestDto;
 import com.gic.book.management.model.Book;
 import com.gic.book.management.reponse.ResponseHandler;
-import com.gic.book.management.service.BookStoreService;
+import com.gic.book.management.service.BookService;
 
 import jakarta.validation.Valid;
 
@@ -16,14 +16,14 @@ import java.util.UUID;
 @RequestMapping("/api/books")
 public class BookStoreController {
 
-    private final BookStoreService bookStoreService;
+    private final BookService bookStoreService;
 
     /**
      * This controller handles all the CRUD operations for the Book entity.
      * It provides endpoints to create, read, update, and delete books,
      * as well as search for books by title or author.
      */
-    public BookStoreController(BookStoreService bookStoreService) 
+    public BookStoreController(BookService bookStoreService) 
     {
         this.bookStoreService = bookStoreService;
     }
@@ -65,12 +65,9 @@ public class BookStoreController {
      * @return ResponseEntity indicating success or failure of the operation.
      */
     @PostMapping
-    public ResponseEntity<?> addBook(@Valid @RequestBody Book book, BindingResult result) 
+    public ResponseEntity<?> addBook(@Valid @RequestBody BookRequestDto bookDto) 
     {
-        if (result.hasErrors()) {
-            return ResponseHandler.validationErrorBuilder(result);
-        }
-
+        Book book = new Book(bookDto.getTitle(), bookDto.getAuthor());
         Book createdBook = bookStoreService.addBook(book);
 
         if (createdBook == null) {
@@ -89,12 +86,9 @@ public class BookStoreController {
      * @return ResponseEntity indicating success or failure of the operation.
      */
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateBook(@Valid @PathVariable UUID id, @RequestBody Book book, BindingResult result) 
+    public ResponseEntity<?> updateBook(@PathVariable UUID id, @Valid @RequestBody BookRequestDto bookDto) 
     {
-        if (result.hasErrors()) {
-            return ResponseHandler.validationErrorBuilder(result);
-        }
-
+        Book book = new Book(bookDto.getTitle(), bookDto.getAuthor());
         Book updatedBook = bookStoreService.updateBook(id, book);
 
         if (updatedBook == null) {
@@ -133,7 +127,7 @@ public class BookStoreController {
      * @return ResponseEntity containing a list of books matching the search criteria.
      */
     @GetMapping("/search")
-    public ResponseEntity<?> getBookById(@RequestParam String queryText,
+    public ResponseEntity<?> searchBooks(@RequestParam String queryText,
     @RequestParam(defaultValue = "0") int page,
     @RequestParam(defaultValue = "10") int size,
     @RequestParam(defaultValue = "title") String sortBy,

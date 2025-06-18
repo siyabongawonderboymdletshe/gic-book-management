@@ -11,14 +11,14 @@ import org.springframework.stereotype.Service;
 import com.gic.book.management.helper.IsbnGeneratorHelper;
 import com.gic.book.management.model.Book;
 import com.gic.book.management.repository.BookRepository;
-import com.gic.book.management.service.BookStoreService;
+import com.gic.book.management.service.BookService;
 
 @Service
-public class BookStoreServiceImpl implements BookStoreService {
+public class BookServiceImpl implements BookService {
 
    BookRepository bookRepository;
  
-    public BookStoreServiceImpl(BookRepository bookRepository) {
+    public BookServiceImpl(BookRepository bookRepository) {
         this.bookRepository = bookRepository;
     }    
 
