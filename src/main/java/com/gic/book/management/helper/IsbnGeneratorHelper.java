@@ -2,8 +2,13 @@ package com.gic.book.management.helper;
 
 import java.util.Random;
 
+/**
+ * This class provides a utility to generate a random ISBN-13 number.
+ * It generates a valid ISBN-13 by creating a prefix, generating random digits,
+ * and calculating the check digit according to the ISBN-13 standard.
+ */
 public class IsbnGeneratorHelper {
-     private static final Random RANDOM = new Random();
+    private static final Random RANDOM = new Random();
 
     public static String generateIsbn13() {
         StringBuilder isbn = new StringBuilder();

@@ -18,17 +18,33 @@ public class BookStoreController {
 
     private final BookStoreService bookStoreService;
 
+    /**
+     * This controller handles all the CRUD operations for the Book entity.
+     * It provides endpoints to create, read, update, and delete books,
+     * as well as search for books by title or author.
+     */
     public BookStoreController(BookStoreService bookStoreService) 
     {
         this.bookStoreService = bookStoreService;
     }
 
+    /**
+     * Retrieves all books from the book store.
+     *
+     * @return ResponseEntity containing a list of all books.
+     */        
     @GetMapping
-    public ResponseEntity<List<Book>> getAllBooks() 
+    public ResponseEntity<List<Book>> getBooks() 
     {
         return ResponseEntity.ok(bookStoreService.getAllBooks());
     }
 
+    /**
+     * Retrieves a book by its ID.
+     *
+     * @param id the UUID of the book to retrieve.
+     * @return ResponseEntity containing the book if found, or a not found message.
+     */
     @GetMapping("/{id}")
     public ResponseEntity<?> getBookById(@PathVariable UUID id) 
     {
@@ -41,6 +57,13 @@ public class BookStoreController {
         return ResponseHandler.notFound("Book with ID " + id + " not found.");
     }
 
+    /**
+     * Adds a new book to the book store.
+     *
+     * @param book the Book object to add.
+     * @param result BindingResult to capture validation errors.
+     * @return ResponseEntity indicating success or failure of the operation.
+     */
     @PostMapping
     public ResponseEntity<?> addBook(@Valid @RequestBody Book book, BindingResult result) 
     {
@@ -57,6 +80,14 @@ public class BookStoreController {
         return ResponseHandler.created("Book created successfully", createdBook);
     }
 
+    /**
+     * Updates an existing book in the book store.
+     *
+     * @param id the UUID of the book to update.
+     * @param book the Book object containing updated information.
+     * @param result BindingResult to capture validation errors.
+     * @return ResponseEntity indicating success or failure of the operation.
+     */
     @PutMapping("/{id}")
     public ResponseEntity<?> updateBook(@Valid @PathVariable UUID id, @RequestBody Book book, BindingResult result) 
     {
@@ -72,7 +103,13 @@ public class BookStoreController {
 
        return ResponseHandler.success("Book updated successfully", updatedBook);
     }
-
+    
+    /**
+     * Deletes a book from the book store by its ID.
+     *
+     * @param id the UUID of the book to delete.
+     * @return ResponseEntity indicating success or failure of the operation.
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteBook(@PathVariable UUID id) 
     {
@@ -85,6 +122,16 @@ public class BookStoreController {
          return ResponseHandler.notFound("Book with ID " + id + " not found.");
     }
 
+    /**
+     * Searches for books by title or author.
+     *
+     * @param queryText the text to search for in book titles or authors.
+     * @param page the page number for pagination.
+     * @param size the number of books per page.
+     * @param sortBy the field to sort by (default is "title").
+     * @param sortDir the direction of sorting (default is "asc").
+     * @return ResponseEntity containing a list of books matching the search criteria.
+     */
     @GetMapping("/search")
     public ResponseEntity<?> getBookById(@RequestParam String queryText,
     @RequestParam(defaultValue = "0") int page,

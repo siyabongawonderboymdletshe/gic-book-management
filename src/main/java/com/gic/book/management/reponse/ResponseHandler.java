@@ -10,6 +10,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+/**
+ * This class provides static methods to build standardized HTTP responses
+ * for various scenarios such as success, validation errors, conflicts, etc.
+ */
 public class ResponseHandler {
 
     public static ResponseEntity<Object> responseBuilder(
@@ -23,6 +27,12 @@ public class ResponseHandler {
         return new ResponseEntity<>(response, httpStatus);
     }
 
+    /**
+     * Builds a response for validation errors.
+     *
+     * @param result the BindingResult containing validation errors
+     * @return ResponseEntity with a list of error messages
+     */
     public static ResponseEntity<Object> validationErrorBuilder(BindingResult result) 
     {
         List<String> errors = result.getFieldErrors()
@@ -37,7 +47,13 @@ public class ResponseHandler {
 
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
-
+     
+    /**
+     * Builds a response for a conflict scenario.
+     *
+     * @param message the conflict message
+     * @return ResponseEntity with the conflict message and status
+     */
     public static ResponseEntity<Object> conflict(String message) 
     {
         Map<String, Object> response = new HashMap<>();
@@ -47,6 +63,13 @@ public class ResponseHandler {
         return new ResponseEntity<>(response, HttpStatus.CONFLICT);
     }
 
+    /**
+     * Builds a response for a successful creation operation.
+     *
+     * @param message the success message
+     * @param data the data to include in the response
+     * @return ResponseEntity with the success message, status, and data
+     */
     public static ResponseEntity<Object> created(String message, Object data) 
     {
         Map<String, Object> response = new HashMap<>();
@@ -56,7 +79,13 @@ public class ResponseHandler {
 
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
-
+   
+    /**
+     * Builds a response for a not found scenario.
+     *
+     * @param message the not found message
+     * @return ResponseEntity with the not found message and status
+     */
     public static ResponseEntity<Object> notFound(String message) 
     {
         Map<String, Object> response = new HashMap<>();
@@ -66,6 +95,13 @@ public class ResponseHandler {
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
 
+    /**
+     * Builds a successful response with a message and data.
+     *
+     * @param message the success message
+     * @param data the data to include in the response
+     * @return ResponseEntity with the success message, status, and data
+     */
     public static ResponseEntity<Object> success(String message, Object data) 
     {
         Map<String, Object> response = new HashMap<>();

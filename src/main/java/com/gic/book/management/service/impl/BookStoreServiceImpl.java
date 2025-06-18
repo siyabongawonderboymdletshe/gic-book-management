@@ -23,11 +23,8 @@ public class BookStoreServiceImpl implements BookStoreService {
     }    
 
     /**
-     * Adds a new book to the repository if it does not already exist.
-     * 
-     * @param book The book to be added.
-     * @return The added book, or null if a book with the same title and author already exists.
-     */
+     * {@inheritDoc}
+    */
     @Override
     public Book addBook(Book book) 
     {
@@ -42,13 +39,8 @@ public class BookStoreServiceImpl implements BookStoreService {
     }
 
     /**
-     * Updates an existing book in the repository.
-     *
-     * @param id   The ID of the book to be updated.
-     * @param book The book object containing updated information.
-     * @return The updated book, or a new book if the ID does not exist.
-     */
-
+     * {@inheritDoc}
+    */
     @Override
     public Book updateBook(UUID id, Book book) 
     {
@@ -65,12 +57,9 @@ public class BookStoreServiceImpl implements BookStoreService {
         return existingBook;
     }
 
-    /**
-     * Deletes a book from the repository by its ID.
-     *
-     * @param bookId The ID of the book to be deleted.
-     * @return true if the book was deleted, false if it did not exist.
-     */
+   /**
+     * {@inheritDoc}
+    */
     @Override
     public boolean deleteBook(UUID bookId) 
     {
@@ -83,36 +72,24 @@ public class BookStoreServiceImpl implements BookStoreService {
     }
 
     /**
-     * Retrieves a book by its ID.
-     *
-     * @param bookId The ID of the book to be retrieved.
-     * @return The book if found, or null if not found.
-     */
+     * {@inheritDoc}
+    */
     @Override
     public Book getBookById(UUID bookId) {
         return bookRepository.findById(bookId).orElse(null);
     }
 
     /**
-     * Retrieves all books from the repository.
-     *
-     * @return A list of all books.
-     */
+     * {@inheritDoc}
+    */
     @Override
     public List<Book> getAllBooks() {
         return bookRepository.findAll();
     }
 
     /**
-     * Searches for books by title or author, with pagination and sorting.
-     *
-     * @param queryText The text to search for in titles or authors.
-     * @param page      The page number to retrieve.
-     * @param size      The number of items per page.
-     * @param sortBy    The field to sort by.
-     * @param sortDir   The direction of sorting (asc or desc).
-     * @return A list of books matching the search criteria.
-     */
+     * {@inheritDoc}
+    */
     @Override
     public List<Book> searchByTitleOrAuthor(String queryText, int page, int size, String sortBy, String sortDir)
     {

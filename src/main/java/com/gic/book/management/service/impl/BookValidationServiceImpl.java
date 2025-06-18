@@ -5,11 +5,18 @@ import org.springframework.stereotype.Service;
 import com.gic.book.management.service.BookValidationService;
 import com.gic.book.management.validation.ValidationResult;
 
+/**
+ * This service validates book details such as title and author.
+ * It checks for non-empty values and enforces maximum length constraints.
+ */
 @Service
 public class BookValidationServiceImpl implements BookValidationService {
     private static final int MAX_TITLE_LENGTH = 100;
     private static final int MAX_AUTHOR_LENGTH = 50;
 
+    /**
+     * {@inheritDoc}
+    */
     public ValidationResult validate(String title, String author) {
         ValidationResult result = new ValidationResult();
 
