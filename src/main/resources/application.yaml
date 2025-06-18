@@ -1,11 +1,11 @@
 spring:
+  config:
+      activate:
+        on-profile: development
   datasource:
-    # url: ${SPRING_DATASOURCE_URL}
-    # username: ${SPRING_DATASOURCE_USERNAME}
-    # password: ${SPRING_DATASOURCE_PASSWORD}
-    url: jdbc:mysql://localhost:3306/bookstore?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
-    username: root
-    password: rootpassword
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
@@ -14,5 +14,24 @@ spring:
       ddl-auto: update
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MySQLDialect    
- 
+        dialect: org.hibernate.dialect.MySQLDialect
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: production
+  datasource:
+    url: jdbc:mysql://sql3.freesqldatabase.com:3306/sql3785536?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+    username: sql3785536
+    password: dQHtbnv1zk
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    show_sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect

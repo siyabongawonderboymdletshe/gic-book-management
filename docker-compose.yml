@@ -28,3 +28,6 @@ services:
 
 volumes:
   mysql-data:
+
+environment:
+  - SPRING_PROFILES_ACTIVE=development
