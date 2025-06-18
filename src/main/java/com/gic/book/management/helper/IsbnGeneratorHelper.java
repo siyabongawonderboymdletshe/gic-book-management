@@ -8,8 +8,9 @@ public class IsbnGeneratorHelper {
     public static String generateIsbn13() {
         StringBuilder isbn = new StringBuilder();
 
-        // Start with the standard ISBN-13 prefix: 978 or 979
-        isbn.append("978");
+        // Start with a random ISBN-13 prefix: 978 or 979
+        String prefix = RANDOM.nextBoolean() ? "978" : "979";
+        isbn.append(prefix);
 
         // Generate next 9 random digits (to reach 12 total before check digit)
         for (int i = 0; i < 9; i++) {
