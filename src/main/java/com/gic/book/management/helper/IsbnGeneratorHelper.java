@@ -32,7 +32,7 @@ public class IsbnGeneratorHelper {
         return isbn.toString();
     }
 
-    private static int calculateCheckDigit(String isbn12) {
+    public static int calculateCheckDigit(String isbn12) {
         if (isbn12.length() != 12) {
             throw new IllegalArgumentException("ISBN must be 12 digits long for check digit calculation.");
         }

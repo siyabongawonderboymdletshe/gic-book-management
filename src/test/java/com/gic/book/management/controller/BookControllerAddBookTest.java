@@ -18,46 +18,44 @@ import com.gic.book.management.model.Book;
 import com.gic.book.management.service.BookService;
 
 @ExtendWith(MockitoExtension.class)
-class BookStorePostTest {
+class BookControllerAddBookTest {
     @InjectMocks
-    private BookController bookStoreController;
+    private BookController bookController;
 
     @Mock
-    private BookService bookStoreService;
+    private BookService bookService;
 
     @Test
-    void addBook_shouldReturnAddedBookIfItDoesNoExist() {
+    void addBook_returnsCreatedBook_whenBookDoesNotExist() {
+        BookRequestDto dto = new BookRequestDto("Valid Title", "Valid Author");
+        Book added = new Book(dto.getTitle(), dto.getAuthor());
 
-        BookRequestDto dTo = new BookRequestDto("Valid Title", "Valid Author");
-        Book added = new Book(dTo.getTitle(), dTo.getAuthor());
-
-        Mockito.when(bookStoreService.addBook(Mockito.any(Book.class)))
-           .thenReturn(added);
+        Mockito.when(bookService.addBook(Mockito.any(Book.class)))
+               .thenReturn(added);
 
         Map<String, Object> expectedResponse = new HashMap<>();
         expectedResponse.put("message", "Book created successfully");
         expectedResponse.put("httpStatus", HttpStatus.CREATED);
         expectedResponse.put("data", added);
 
-        ResponseEntity<?> response = bookStoreController.addBook(dTo);
+        ResponseEntity<?> response = bookController.addBook(dto);
 
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
         assertEquals(expectedResponse, response.getBody());
     }
 
     @Test
-    void addBook_shouldReturnConflictErrorIfBookExists() {
+    void addBook_returnsConflict_whenBookAlreadyExists() {
+        BookRequestDto dto = new BookRequestDto("Valid Title", "Valid Author");
 
-        BookRequestDto dTo = new BookRequestDto("Valid Title", "Valid Author");
-       
-        Mockito.when(bookStoreService.addBook(Mockito.any(Book.class)))
-           .thenReturn(null);
+        Mockito.when(bookService.addBook(Mockito.any(Book.class)))
+               .thenReturn(null);
 
         Map<String, Object> expectedResponse = new HashMap<>();
         expectedResponse.put("message", "Book with the same title and author already exists.");
         expectedResponse.put("httpStatus", HttpStatus.CONFLICT);
 
-        ResponseEntity<?> response = bookStoreController.addBook(dTo);
+        ResponseEntity<?> response = bookController.addBook(dto);
 
         assertEquals(HttpStatus.CONFLICT, response.getStatusCode());
         assertEquals(expectedResponse, response.getBody());

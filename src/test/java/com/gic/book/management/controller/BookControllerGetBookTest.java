@@ -19,46 +19,44 @@ import com.gic.book.management.service.BookService;
 
 //@SpringBootTest
 @ExtendWith(MockitoExtension.class)
-class BookStoreGetTest {
+class BookControllerGetBookTest {
    @InjectMocks
-    private BookController bookStoreController;
+    private BookController bookController;
 
     @Mock
-    private BookService bookStoreService;
+    private BookService bookService;
 
     @Test
-    void getBook_shouldReturnBookDetailsWhenBookExists() {
-
+    void getBookById_returnsBookDetails_whenBookExists() {
         Book book = new Book("Valid Title", "Valid Author");
         UUID id = book.getId();
 
-        Mockito.when(bookStoreService.getBookById(id)).thenReturn(book);
+        Mockito.when(bookService.getBookById(id)).thenReturn(book);
 
         Map<String, Object> expectedResponse = new HashMap<>();
         expectedResponse.put("message", "");
         expectedResponse.put("httpStatus", HttpStatus.OK);
         expectedResponse.put("data", book);
 
-        ResponseEntity<?> response = bookStoreController.getBookById(id);
+        ResponseEntity<?> response = bookController.getBookById(id);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(expectedResponse, response.getBody());
     }
 
     @Test
-    void getBook_shouldReturnNotFoundWhenBookIdDoesNotExist() {
-
+    void getBookById_returnsNotFound_whenBookDoesNotExist() {
         UUID id = UUID.randomUUID();
 
-        Mockito.when(bookStoreService.getBookById(id)).thenReturn(null);
+        Mockito.when(bookService.getBookById(id)).thenReturn(null);
 
         Map<String, Object> expectedBody = new HashMap<>();
         expectedBody.put("message", "Book with ID " + id + " not found.");
         expectedBody.put("httpStatus", HttpStatus.NOT_FOUND);
 
-        ResponseEntity<?> response = bookStoreController.getBookById(id);
-        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+        ResponseEntity<?> response = bookController.getBookById(id);
 
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
         assertEquals(expectedBody, response.getBody());
     }
 }

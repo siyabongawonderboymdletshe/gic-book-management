@@ -17,37 +17,34 @@ import org.springframework.http.ResponseEntity;
 import com.gic.book.management.service.BookService;
 
 @ExtendWith(MockitoExtension.class)
-class BookStoreDeleteTest {
+class BookControllerDeleteBookTest {
+
     @InjectMocks
-    private BookController bookStoreController;
+    private BookController bookController;
 
     @Mock
-    private BookService bookStoreService;
+    private BookService bookService;
 
     @Test
-    void deleteBook_shouldReturn204WhenBookExists() {
-
+    void deleteBook_returnsOk_whenBookExists() {
         UUID id = UUID.randomUUID();
+        Mockito.when(bookService.deleteBook(id)).thenReturn(true);
 
-        Mockito.when(bookStoreService.deleteBook(id)).thenReturn(true);
-
-        ResponseEntity<?> response = bookStoreController.deleteBook(id);
+        ResponseEntity<?> response = bookController.deleteBook(id);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
     }
 
     @Test
-    void deleteBook_shouldReturnNotFoundWhenBookIdDoesNotExist() {
-
+    void deleteBook_returnsNotFound_whenBookDoesNotExist() {
         UUID id = UUID.randomUUID();
-
-        Mockito.when(bookStoreService.deleteBook(id)).thenReturn(false);
+        Mockito.when(bookService.deleteBook(id)).thenReturn(false);
 
         Map<String, Object> expectedBody = new HashMap<>();
         expectedBody.put("message", "Book with ID " + id + " not found.");
         expectedBody.put("httpStatus", HttpStatus.NOT_FOUND);
 
-        ResponseEntity<?> response = bookStoreController.deleteBook(id);
+        ResponseEntity<?> response = bookController.deleteBook(id);
 
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
         assertEquals(expectedBody, response.getBody());
