@@ -45,6 +45,15 @@ del "%ZIP_FILE%" >nul 2>&1
 :: STEP 4: Go into extracted folder
 cd /d "%TARGET_DIR%\gic-book-management-main"
 
+
+java -version
+if errorlevel 1 (
+    echo ❌ Java is NOT installed or not added to PATH..
+    pause
+    exit /b
+)
+
+
 :: STEP 5: Build JAR with Maven Wrapper
 echo ⚙️ Packaging JAR...
 call mvnw clean package
@@ -63,6 +72,10 @@ if errorlevel 1 (
     pause
     exit /b
 )
+
+
+echo.
+echo ✅ Setup complete! Project is in: %TARGET_DIR%\gic-book-management-main
 
 :: STEP 7: Start Docker containers
 echo 🐳 Starting Docker containers...

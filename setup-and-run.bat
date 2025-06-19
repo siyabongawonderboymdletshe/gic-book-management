@@ -1,42 +1,60 @@
 @echo off
 setlocal
 
-:: Set your desired target directory
-:: set TARGET_DIR=C:\dev\gic-book-management-local
+:: === CONFIGURATION ===
+set ZIP_URL=https://github.com/siyabongawonderboymdletshe/gic-book-management/archive/refs/heads/main.zip
 set TARGET_DIR=%USERPROFILE%\dev\gic-book-management-local
+set ZIP_FILE=%TEMP%\gic-book-management.zip
 
-:: Create the directory if it doesn't exist
-if not exist "%TARGET_DIR%" (
-    mkdir "%TARGET_DIR%"
+echo --------------------------------------------------
+echo 📦 GIC Book Management - Setup
+
+
+:: STEP 1: Ensure curl is available
+where curl >nul 2>&1
+if errorlevel 1 (
+    echo ❌ curl not found. Please install or use Git Bash.
+    pause
+    exit /b
 )
 
-:: Move into the target directory
-cd /d "%TARGET_DIR%"
-
-:: Step 1: Download project zip
-echo Downloading project zip...
-curl -L -o gic-book-management.zip https://github.com/siyabongawonderboymdletshe/gic-book-management/archive/refs/heads/main.zip
+:: STEP 2: Download ZIP
+echo 🔽 Downloading project ZIP...
+mkdir "%TARGET_DIR%" >nul 2>&1
+curl -L -o "%ZIP_FILE%" %ZIP_URL%
 if errorlevel 1 (
     echo ❌ Failed to download project ZIP.
     pause
     exit /b
 )
 
-:: Step 2: Extract the zip
-echo Extracting zip...
-powershell -Command "Expand-Archive -Path 'gic-book-management.zip' -DestinationPath '.' -Force"
-
+:: STEP 3: Unzip to target dir
+echo 📂 Extracting files...
+powershell -Command "Expand-Archive -Path '%ZIP_FILE%' -DestinationPath '%TARGET_DIR%' -Force"
 if errorlevel 1 (
     echo ❌ Failed to extract project ZIP.
     pause
     exit /b
 )
 
-:: Step 3: Go into the extracted folder
-cd gic-book-management-main
 
-:: Step 4: Build the project with Maven Wrapper
-echo Building project...
+:: ✅ Clean up ZIP file
+echo 🧹 Cleaning up temporary files...
+del "%ZIP_FILE%" >nul 2>&1
+
+:: STEP 4: Go into extracted folder
+cd /d "%TARGET_DIR%\gic-book-management-main"
+
+
+java -version
+if errorlevel 1 (
+    echo ❌ Java is NOT installed or not added to PATH..
+    pause
+    exit /b
+)
+
+:: STEP 5: Build JAR with Maven Wrapper
+echo ⚙️ Packaging JAR...
 call mvnw clean package
 if errorlevel 1 (
     echo ❌ Maven build failed.
@@ -44,10 +62,13 @@ if errorlevel 1 (
     exit /b
 )
 
+
+echo.
+echo ✅ Setup complete! Project is in: %TARGET_DIR%\gic-book-management-main
+
 :: Step 5: Run the app
 echo Starting app...
 java -jar target\gic-book-management-0.0.1-SNAPSHOT.jar
 
-echo.
-echo ✅ Setup complete! Project is in: %TARGET_DIR%\gic-book-management-main
+endlocal
 pause
