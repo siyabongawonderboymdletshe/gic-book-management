@@ -33,7 +33,7 @@ class BookControllerGetBookTest {
         Mockito.when(bookService.getBookById(id)).thenReturn(book);
 
         Map<String, Object> expectedResponse = new HashMap<>();
-        expectedResponse.put("message", "");
+        expectedResponse.put("message", "Book retrieved successfully");
         expectedResponse.put("httpStatus", HttpStatus.OK);
         expectedResponse.put("data", book);
 
