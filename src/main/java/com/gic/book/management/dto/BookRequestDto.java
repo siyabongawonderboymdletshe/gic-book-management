@@ -12,6 +12,12 @@ public class BookRequestDto {
     @Size(max = 50, message = "Author name can be up to 50 characters")
     private String author;
 
+    public BookRequestDto(String title, String author) 
+    {
+        this.title = title;
+        this.author = author;
+    }
+
     public String getTitle() {
         return title;
     }

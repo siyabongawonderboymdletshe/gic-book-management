@@ -47,7 +47,7 @@ public class BookServiceImpl implements BookService {
         Book existingBook = bookRepository.findById(id).orElse(null);
         if (existingBook == null) 
         {
-         return addBook(book);
+         return null;
         }
 
         existingBook.setAuthor(book.getAuthor());

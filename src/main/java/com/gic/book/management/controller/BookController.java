@@ -14,7 +14,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/books")
-public class BookStoreController {
+public class BookController {
 
     private final BookService bookStoreService;
 
@@ -23,7 +23,7 @@ public class BookStoreController {
      * It provides endpoints to create, read, update, and delete books,
      * as well as search for books by title or author.
      */
-    public BookStoreController(BookService bookStoreService) 
+    public BookController(BookService bookStoreService) 
     {
         this.bookStoreService = bookStoreService;
     }
