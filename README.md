@@ -105,7 +105,7 @@ http://localhost:8080/swagger-ui/index.html
 ---
 
 #### 📬 Postman Collection
-A pre-built Postman collection is available for testing all API endpoints. Import it into Postman via:
+A pre-built Postman collection is available for testing all API endpoints. Import it into Postman.
 
 File Location:
 ```bash
@@ -131,15 +131,14 @@ This includes:
 | GET    | `/api/books/search/{query}` | 🔎 **Search book**   |
 
 ---
-#### 🛢️ Database Access
+## 🛢️ Database Access
 
-| Environment          | Host                       | Port   | Access                                            |
-| -------------------- | -------------------------- | ------ | ------------------------------------------------- |
-| **Local via Docker** | `localhost`                | `3306` | Access with tools like DBeaver                    |
-| **Remote (FreeSQL)** | `sql3.freesqldatabase.com` | `3306` | View via [phpMyAdmin](https://www.phpmyadmin.co/) |
+### 🌐 Connect to the Remote MySQL Database (FreeSQLDatabase.com)
+This project is also configured to use a free public MySQL database.
 
+You can manage and inspect data online using: https://www.phpmyadmin.co:
 
-##### 📌 Remote MySQL Credentials:
+##### 📌 Credentials:
 ```bash
 Host:     sql3.freesqldatabase.com
 DB Name:  sql3785536
@@ -147,9 +146,57 @@ User:     sql3785536
 Password: dQHtbnv1zk
 Port:     3306
 ```
-You can manage and inspect data online using: https://www.phpmyadmin.co/
 
+##### 🔗 Connect via GUI (DBeaver, MySQL Workbench)
+- Open your preferred database tool
+- Create a new MySQL connection
+- Enter the credentials above
+- Connect and browse the data
+
+
+### 🐋 Connect to the Local Docker MySQL Database
+Once the containers are running via:
+```bash
+docker-compose up --build
+```
+You can connect to the MySQL database running inside the container.
+
+#### 🔧 Option 1: Access from Inside the Container (MySQL CLI)
+Run the following command from your terminal to open a MySQL shell:
+```bash
+docker exec -it gic-book-management-mysql-db-1 mysql -u root -p
+```
+Enter the root user password: `rootpassword`
+
+Once inside, select the database and view records:
+```bash
+USE bookstoredb;
+SELECT * FROM book;
+```
+
+#### 🖥️ Option 2: Access via MySQL GUI (e.g., DBeaver, MySQL Workbench)
+Use the following credentials to connect using a GUI tool:
+```bash
+Host:     localhost
+Port:     3306
+User:     root
+Password: rootpassword
+Database: bookstoredb
+```
+If connection is denied, check:
+- Docker is running
+- Port 3306 is mapped
+- User root exists with host = '%'
+
+🛠️ If needed, connect via CLI and run:
+
+```bash
+CREATE USER 'root'@'%' IDENTIFIED BY '';
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%';
+FLUSH PRIVILEGES;
+```
 ---
+
 ## 🐳 How to Install Docker
 
 ### 🔹 Step 1: Download Docker Desktop
