@@ -194,7 +194,7 @@ You can connect to the MySQL database running inside the container.
 #### 🔧 Option 1: Access from Inside the Container (MySQL CLI)
 Run the following command from your terminal to open a MySQL shell:
 ```bash
-docker exec -it gic-book-management-mysql-db-1 mysql -u root -p
+docker exec -it gic-book-mysql mysql -u root -p
 ```
 Enter the root user password: `rootpassword`
 

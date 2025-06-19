@@ -1,6 +1,7 @@
 services:
   mysql-db:
     image: mysql:8.0
+    container_name: gic-book-mysql
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: rootpassword
@@ -14,6 +15,7 @@ services:
 
   app:
     build: .
+    container_name: gic-book-app
     ports:
       - "8080:8080"
     depends_on:
