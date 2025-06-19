@@ -35,6 +35,19 @@ This is a Spring Boot-based RESTful API for managing a book store. It supports f
 
 ### 1. Clone the Repository
 
+#### 📥 Option 1: Download ZIP
+You can download the source code directly without installing Git:
+
+- ⬇️ [Download ZIP](https://github.com/siyabongawonderboymdletshe/gic-book-management/archive/refs/heads/main.zip)
+
+- Extract the contents to your desired folder (e.g., C:\dev\java\gic-book-management)
+
+#### 🔧 Option 2: Clone Using Git
+🛠️ Prerequisite: Make sure Git is installed on your machine. You can verify this by running in a terminal:
+```bash
+git --version
+```
+
 Open a terminal and navigate to your desired development directory (e.g., C:\dev\java). Then run:
 
 ```bash
