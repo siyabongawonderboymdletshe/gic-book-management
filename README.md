@@ -35,14 +35,29 @@ This is a Spring Boot-based RESTful API for managing a book store. It supports f
 
 ### 1. Clone the Repository
 
-#### 📥 Option 1: Download ZIP
+#### 🔁 Option 1: Automated Setup via .bat Scripts
+You can use a batch script to download the project, build the JAR, and optionally run it with or without Docker — all with one click.
+
+⬇️ Download Setup Scripts:
+
+- 🖥️ Without Docker: [setup-and-run.bat](https://github.com/siyabongawonderboymdletshe/gic-book-management/blob/main/setup-and-run.bat)
+- 🐳 With Docker: [setup-and-run-docker.bat](https://github.com/siyabongawonderboymdletshe/gic-book-management/blob/main/setup-and-run-docker.bat)
+
+ Place the downloaded .bat file in your working directory (e.g., C:\dev\java) and double-click it or run it from terminal.
+
+ ⚠️ These scripts assume Java and Docker (if applicable) are installed and configured on your system.
+
+  The project will be extracted into:
+  - %USERPROFILE%\dev\gic-book-management-{local or docker}
+
+#### 📥 Option 2: Download ZIP
 You can download the source code directly without installing Git:
 
 - ⬇️ [Download ZIP](https://github.com/siyabongawonderboymdletshe/gic-book-management/archive/refs/heads/main.zip)
 
 - Extract the contents to your desired folder (e.g., C:\dev\java\gic-book-management)
 
-#### 🔧 Option 2: Clone Using Git
+#### 🔧 Option 3: Clone Using Git
 🛠️ Prerequisite: Make sure Git is installed on your machine. You can verify this by running in a terminal:
 ```bash
 git --version
@@ -56,6 +71,8 @@ cd gic-book-management
 ```
 
 ### 2. Generate Executable File
+
+📝 Note: You only need Java installed locally if you're building or running the JAR manually
 
 To package the application into a .jar file using Maven wrapper, open a terminal in the root folder:(C:\dev\java\gic-book-management):
 
@@ -144,7 +161,7 @@ This includes:
 | GET    | `/api/books/search/{query}` | 🔎 **Search book**   |
 
 ---
-## 🛢️ Database Access
+### 5. Database Access
 
 ### 🌐 Connect to the Remote MySQL Database (FreeSQLDatabase.com)
 This project is also configured to use a free public MySQL database.
