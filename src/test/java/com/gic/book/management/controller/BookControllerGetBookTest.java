@@ -17,7 +17,6 @@ import org.springframework.http.ResponseEntity;
 import com.gic.book.management.model.Book;
 import com.gic.book.management.service.BookService;
 
-//@SpringBootTest
 @ExtendWith(MockitoExtension.class)
 class BookControllerGetBookTest {
    @InjectMocks

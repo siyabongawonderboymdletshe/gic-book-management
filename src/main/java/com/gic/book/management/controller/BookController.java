@@ -34,9 +34,15 @@ public class BookController {
      * @return ResponseEntity containing a list of all books.
      */        
     @GetMapping
-    public ResponseEntity<List<Book>> getBooks() 
+    public ResponseEntity<?> getBooks() 
     {
-        return ResponseEntity.ok(bookStoreService.getAllBooks());
+         List<Book> books = bookStoreService.getAllBooks();
+
+         String message = books.isEmpty()
+        ? "No books found"
+        : "Books retrieved successfully";
+
+        return ResponseHandler.success(message, books);
     }
 
     /**
@@ -135,10 +141,10 @@ public class BookController {
     {
         List<Book> books = bookStoreService.searchByTitleOrAuthor(queryText, page, size, sortBy, sortDir);
 
-        if (books != null && !books.isEmpty()) {
-            return ResponseHandler.success("", books);
-        }
+        String message = books.isEmpty()
+            ? "No books found matching the query: " + queryText
+            : "Search completed";
 
-        return ResponseHandler.notFound("No books found matching the query: " + queryText);
+        return ResponseHandler.success(message, books);
     }
 }
