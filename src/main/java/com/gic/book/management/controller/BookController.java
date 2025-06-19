@@ -80,7 +80,7 @@ public class BookController {
             return ResponseHandler.conflict("Book with the same title and author already exists.");
         }
 
-        return ResponseHandler.created("Book created successfully", createdBook);
+        return ResponseHandler.created("Book added successfully", createdBook);
     }
 
     /**

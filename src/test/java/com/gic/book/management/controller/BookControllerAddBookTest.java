@@ -34,7 +34,7 @@ class BookControllerAddBookTest {
                .thenReturn(added);
 
         Map<String, Object> expectedResponse = new HashMap<>();
-        expectedResponse.put("message", "Book created successfully");
+        expectedResponse.put("message", "Book added successfully");
         expectedResponse.put("httpStatus", HttpStatus.CREATED);
         expectedResponse.put("data", added);
 
