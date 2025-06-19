@@ -57,7 +57,7 @@ public class BookController {
         Book book = bookStoreService.getBookById(id);
 
         if (book != null) {
-            return ResponseHandler.success("", book);
+            return ResponseHandler.success("Book retrieved successfully", book);
         }
 
         return ResponseHandler.notFound("Book with ID " + id + " not found.");
